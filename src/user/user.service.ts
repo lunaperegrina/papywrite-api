@@ -1,11 +1,17 @@
 import { PrismaService } from 'src/@shared/prisma/prisma.service';
 import { CreateUserDTO } from './dto/create_user.dto';
 import { Prisma, User } from '@prisma/client';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { GetAllQueryDTO } from './dto/get_all_query.dto';
 import { createPaginator } from 'prisma-pagination';
 import { UserOutputDTO } from './dto/output.dto';
 import { EncryptService } from 'src/@shared/encrypt/encrypt.service';
+import { UpdateUserDTO } from './dto/update_user.dto';
 
 @Injectable()
 export class UserService {
@@ -59,5 +65,46 @@ export class UserService {
       },
       { page: query.page },
     );
+  }
+
+  async readById(id: number) {
+    await this.exists(id);
+
+    return this.prisma.user.findUnique({
+      where: { id },
+    });
+  }
+
+  async update(id: number, data: UpdateUserDTO) {
+    await this.exists(id);
+
+    const hashedPassword = await this.encrypt.hashString(data.password);
+
+    return this.prisma.user.update({
+      where: { id },
+      data: {
+        email: data.email,
+        name: data.name,
+        password: hashedPassword,
+      },
+    });
+  }
+
+  async delete(id: number) {
+    await this.exists(id);
+
+    return this.prisma.user.delete({
+      where: { id },
+    });
+  }
+
+  async exists(id: number) {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
   }
 }
