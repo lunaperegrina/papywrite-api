@@ -1,5 +1,5 @@
 import { PrismaService } from 'src/@shared/prisma/prisma.service';
-import { CreateUserDTO } from './dto/create_user.dto';
+import { CreateUserDTO } from './dto/create-user.dto';
 import { Prisma, User } from '@prisma/client';
 import {
   HttpException,
@@ -7,11 +7,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { GetAllQueryDTO } from './dto/get_all_query.dto';
+import { GetAllQueryDTO } from './dto/get-all-query.dto';
 import { createPaginator } from 'prisma-pagination';
 import { UserOutputDTO } from './dto/output.dto';
 import { EncryptService } from 'src/@shared/encrypt/encrypt.service';
-import { UpdateUserDTO } from './dto/update_user.dto';
+import { UpdateUserDTO } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {

@@ -4,24 +4,26 @@ import {
   Get,
   Post,
   Query,
-  Put,
+  Patch,
   Param,
   Delete,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
+  ApiOkResponse,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
 import { UserService } from './user.service';
-import { CreateUserDTO } from './dto/create_user.dto';
+import { CreateUserDTO } from './dto/create-user.dto';
 import { UserOutputDTO } from './dto/output.dto';
-import { UpdateUserDTO } from './dto/update_user.dto';
+import { UpdateUserDTO } from './dto/update-user.dto';
 import { User } from '@prisma/client';
 import { Public } from 'src/@shared/decorators/public-route.decorator';
-import { GetAllQueryDTO } from './dto/get_all_query.dto';
+import { GetAllQueryDTO } from './dto/get-all-query.dto';
 import { PaginatedOutputDTO } from 'src/@shared/pagination/dto/paginated_output.dto';
+import { ParamId } from 'src/@shared/decorators/param-id';
 
 @Controller('user')
 @ApiTags('user')
@@ -36,7 +38,7 @@ export class UserController {
     return this.service.create(data);
   }
 
-  // @Public()
+  @Public()
   @Get()
   @ApiCreatedResponse({ type: UserOutputDTO })
   async readAll(
@@ -47,15 +49,14 @@ export class UserController {
 
   @Public()
   @Get(':id')
-  @ApiCreatedResponse({ type: UserOutputDTO })
+  @ApiOkResponse({ type: UserOutputDTO })
   @ApiParam({ name: 'id', type: Number })
-  async readById(@Param('id') id: number): Promise<User> {
+  async readById(@ParamId('id') id: number): Promise<User> {
     return this.service.readById(id);
   }
 
-  @Public()
-  @Put(':id')
-  @ApiCreatedResponse({ type: UserOutputDTO })
+  @Patch(':id')
+  @ApiOkResponse({ type: UserOutputDTO })
   @ApiParam({ name: 'id', type: Number })
   async update(
     @Param('id') id: number,
@@ -64,9 +65,8 @@ export class UserController {
     return this.service.update(id, data);
   }
 
-  @Public()
   @Delete(':id')
-  @ApiCreatedResponse({ type: UserOutputDTO })
+  @ApiOkResponse({ type: UserOutputDTO })
   @ApiParam({ name: 'id', type: Number })
   async delete(@Param('id') id: number): Promise<User> {
     return this.service.delete(id);

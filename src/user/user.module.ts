@@ -5,7 +5,6 @@ import { PrismaService } from 'src/@shared/prisma/prisma.service';
 import { EncryptService } from 'src/@shared/encrypt/encrypt.service';
 
 @Module({
-  imports: [],
   controllers: [UserController],
   providers: [UserService, PrismaService, EncryptService],
 })
