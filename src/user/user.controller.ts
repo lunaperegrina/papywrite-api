@@ -38,7 +38,6 @@ export class UserController {
     return this.service.create(data);
   }
 
-  @Public()
   @Get()
   @ApiCreatedResponse({ type: UserOutputDTO })
   async readAll(

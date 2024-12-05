@@ -1,12 +1,22 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // CORS
   app.enableCors();
+
+  // Ativar validação global
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // Remove propriedades extras do payload
+      forbidNonWhitelisted: true, // Lança erro para propriedades desconhecidas
+      transform: true, // Transforma payload para os tipos do DTO
+    }),
+  );
 
   // API DOCS WITH SWAGGER
   const config = new DocumentBuilder()

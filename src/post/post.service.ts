@@ -6,6 +6,7 @@ import { GetAllQueryDTO } from './dto/get-all-query.dto';
 import { createPaginator } from 'prisma-pagination';
 import { PostOutputDTO } from './dto/output.dto';
 import { Prisma } from '@prisma/client';
+import { customAlphabet } from 'nanoid';
 
 @Injectable()
 export class PostService {
@@ -84,7 +85,6 @@ export class PostService {
   }
 
   async generateSlug(title: string): Promise<string> {
-    const { customAlphabet } = await import('nanoid');
     const nanoid = await customAlphabet(
       '0123456789abcdefghijklmnopqrstuvwxyz',
       8,
