@@ -78,14 +78,11 @@ export class UserService {
   async update(id: number, data: UpdateUserDTO) {
     await this.exists(id);
 
-    const hashedPassword = await this.encrypt.hashString(data.password);
-
     return this.prisma.user.update({
       where: { id },
       data: {
         email: data.email,
         name: data.name,
-        password: hashedPassword,
       },
     });
   }

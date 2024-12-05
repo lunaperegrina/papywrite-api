@@ -106,7 +106,6 @@ describe('User Service Tests', () => {
     const updatedUser = {
       name: 'Doe',
       email: 'doe@john.com',
-      password: '1234',
     };
 
     const response = await service.update(createdUser.id, updatedUser);
