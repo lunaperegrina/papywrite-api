@@ -1,9 +1,11 @@
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
+import { PaginatedResult } from 'prisma-pagination';
 import { AuthService } from 'src/@shared/auth/auth.service';
 import { EncryptService } from 'src/@shared/encrypt/encrypt.service';
 import { PrismaService } from 'src/@shared/prisma/prisma.service';
 import { UserService } from 'src/user/user.service';
+import { UserOutputDTO } from './dto/output.dto';
 
 describe('User Service Tests', () => {
   let service: UserService;
@@ -65,7 +67,9 @@ describe('User Service Tests', () => {
       data: users,
     });
 
-    const response = await service.readAll({});
+    const data = await service.readAll({});
+
+    const response = (data as PaginatedResult<UserOutputDTO>).data;
 
     expect(response[0]).toEqual(expect.objectContaining(users[0]));
     expect(response[1]).toEqual(expect.objectContaining(users[1]));
@@ -76,8 +80,7 @@ describe('User Service Tests', () => {
     const user = {
       email: 'john@doe.com',
       password: '1234',
-      first_name: 'John',
-      last_name: 'Doe',
+      name: 'John',
     };
 
     const createdUser = await prisma.user.create({
@@ -93,8 +96,7 @@ describe('User Service Tests', () => {
     const user = {
       email: 'john@doe.com',
       password: '1234',
-      first_name: 'John',
-      last_name: 'Doe',
+      name: 'John',
     };
 
     const createdUser = await prisma.user.create({
@@ -102,12 +104,14 @@ describe('User Service Tests', () => {
     });
 
     const updatedUser = {
-      first_name: 'Doe',
-      last_name: 'John',
+      name: 'Doe',
       email: 'doe@john.com',
+      password: '1234',
     };
 
     const response = await service.update(createdUser.id, updatedUser);
+
+    console.log(response);
 
     expect(response).toEqual(
       expect.objectContaining({ ...updatedUser, password: expect.any(String) }),
@@ -118,8 +122,7 @@ describe('User Service Tests', () => {
     const user = {
       email: 'john@doe.com',
       password: '1234',
-      first_name: 'John',
-      last_name: 'Doe',
+      name: 'John',
     };
 
     const createdUser = await prisma.user.create({
