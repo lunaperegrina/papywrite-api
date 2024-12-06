@@ -6,10 +6,16 @@ export class PostOutputDTO implements Post {
   id: number;
 
   @ApiProperty()
-  authorId: number;
+  author_id: number;
 
   @ApiProperty()
   title: string;
+
+  @ApiProperty()
+  description: string;
+
+  @ApiProperty()
+  banner: string;
 
   @ApiProperty()
   content: string;
@@ -21,8 +27,8 @@ export class PostOutputDTO implements Post {
   published: boolean;
 
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @ApiProperty()
-  updatedAt: Date;
+  updated_at: Date;
 }

@@ -41,6 +41,7 @@ export class UserService {
         email: data.email,
         password: hashedPassword,
         name: data.name,
+        username: data.username,
       },
     });
   }
@@ -49,7 +50,7 @@ export class UserService {
     if (query.page === 0) {
       return this.prisma.user.findMany({
         orderBy: {
-          createdAt: query.created ?? 'desc',
+          created_at: query.created ?? 'desc',
         },
       });
     }
@@ -60,7 +61,7 @@ export class UserService {
       this.prisma.user,
       {
         orderBy: {
-          createdAt: query.created ?? 'desc',
+          created_at: query.created ?? 'desc',
         },
       },
       { page: query.page },

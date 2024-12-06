@@ -40,6 +40,7 @@ describe('User Service Tests', () => {
       email: 'john@doe.com',
       password: '1234',
       name: 'John',
+      username: 'johnjohn',
     };
 
     const response = await service.create(user);
@@ -55,11 +56,13 @@ describe('User Service Tests', () => {
         email: 'john@doe.com',
         password: '1234',
         name: 'John 1',
+        username: 'johnjohn',
       },
       {
         email: 'doe@john.com',
         password: '1234',
         name: 'John 2',
+        username: 'doedoe',
       },
     ];
 
@@ -81,6 +84,7 @@ describe('User Service Tests', () => {
       email: 'john@doe.com',
       password: '1234',
       name: 'John',
+      username: 'johnjohn',
     };
 
     const createdUser = await prisma.user.create({
@@ -97,6 +101,7 @@ describe('User Service Tests', () => {
       email: 'john@doe.com',
       password: '1234',
       name: 'John',
+      username: 'johnjohn',
     };
 
     const createdUser = await prisma.user.create({
@@ -122,6 +127,7 @@ describe('User Service Tests', () => {
       email: 'john@doe.com',
       password: '1234',
       name: 'John',
+      username: 'johnjohn',
     };
 
     const createdUser = await prisma.user.create({

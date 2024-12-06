@@ -16,7 +16,7 @@ export class PostService {
     const slug = await this.generateSlug(data.title);
     return this.prisma.post.create({
       data: {
-        authorId: data.authorId,
+        author_id: data.author_id,
         title: data.title,
         content: data.content,
         slug,
@@ -28,7 +28,7 @@ export class PostService {
     if (query.page === 0) {
       return this.prisma.post.findMany({
         orderBy: {
-          createdAt: query.created ?? 'desc',
+          created_at: query.created ?? 'desc',
         },
       });
     }
@@ -39,7 +39,7 @@ export class PostService {
       this.prisma.post,
       {
         orderBy: {
-          createdAt: query.created ?? 'desc',
+          created_at: query.created ?? 'desc',
         },
       },
       { page: query.page },

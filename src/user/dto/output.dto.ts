@@ -9,7 +9,16 @@ export class UserOutputDTO implements User {
   email: string;
 
   @ApiProperty()
+  username: string;
+
+  @ApiProperty()
   name: string;
+
+  @ApiProperty()
+  bio: string;
+
+  @ApiProperty()
+  avatar: string;
 
   @ApiProperty()
   password: string;
@@ -18,8 +27,8 @@ export class UserOutputDTO implements User {
   active: boolean;
 
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @ApiProperty()
-  updatedAt: Date;
+  updated_at: Date;
 }
