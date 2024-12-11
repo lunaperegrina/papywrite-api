@@ -19,7 +19,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "generate-interfaces": "npx @kalissaac/prisma-typegen ./interfaces ./src/@shared/prisma/schema.prisma",
     "migrate:deploy": "prisma migrate deploy",
-    "seed": "ts-node prisma/seed.ts",
+    "seed": "ts-node ./src/@shared/prisma/seed.ts",
     "start:prod": "npm run migrate:deploy && npm run seed && node dist/main"
   },
   "dependencies": {
