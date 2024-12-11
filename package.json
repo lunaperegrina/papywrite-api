@@ -20,7 +20,7 @@
     "generate-interfaces": "npx @kalissaac/prisma-typegen ./interfaces ./src/@shared/prisma/schema.prisma",
     "migrate:deploy": "prisma migrate deploy",
     "seed": "ts-node ./src/@shared/prisma/seed.ts",
-    "start:prod": "npm run migrate:deploy && npm run seed && node dist/main"
+    "start:prod": "npm run migrate:deploy && npm run seed && node dist/src/main.js"
   },
   "dependencies": {
     "@faker-js/faker": "^9.3.0",
