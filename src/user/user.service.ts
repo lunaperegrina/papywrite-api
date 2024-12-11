@@ -76,6 +76,12 @@ export class UserService {
     });
   }
 
+  async readByUsername(username: string): Promise<User> {
+    return this.prisma.user.findUnique({
+      where: { username },
+    });
+  }
+
   async update(id: number, data: UpdateUserDTO) {
     await this.exists(id);
 

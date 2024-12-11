@@ -54,6 +54,15 @@ export class PostService {
     });
   }
 
+  async readByAuthorId(id: number) {
+    console.log(id);
+    return this.prisma.post.findMany({
+      where: {
+        author_id: id,
+      },
+    });
+  }
+
   async update(id: number, data: UpdatePostDto) {
     await this.exists(id);
 

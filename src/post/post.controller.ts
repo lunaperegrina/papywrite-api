@@ -46,6 +46,15 @@ export class PostController {
     return this.postService.readById(id);
   }
 
+  @Public()
+  @Get('author/:id')
+  @ApiOkResponse({ type: [PostOutputDTO] })
+  @ApiParam({ name: 'id', type: Number })
+  async readByUsername(@ParamId('id') id: number): Promise<PostPrisma[]> {
+    return this.postService.readByAuthorId(id);
+  }
+
+  @Public()
   @Patch(':id')
   @ApiOkResponse({ type: PostOutputDTO })
   @ApiParam({ name: 'id', type: Number })
@@ -56,6 +65,7 @@ export class PostController {
     return this.postService.update(id, data);
   }
 
+  @Public()
   @Delete(':id')
   @ApiOkResponse({ type: PostOutputDTO })
   @ApiParam({ name: 'id', type: Number })

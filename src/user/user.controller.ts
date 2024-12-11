@@ -38,12 +38,21 @@ export class UserController {
     return this.service.create(data);
   }
 
+  @Public()
   @Get()
   @ApiCreatedResponse({ type: UserOutputDTO })
   async readAll(
     @Query() query: GetAllQueryDTO,
   ): Promise<User[] | PaginatedOutputDTO<UserOutputDTO>> {
     return this.service.readAll(query);
+  }
+
+  @Public()
+  @Get('username/:username')
+  @ApiOkResponse({ type: UserOutputDTO })
+  @ApiParam({ name: 'username', type: String })
+  async readByUsername(@Param('username') username: string): Promise<User> {
+    return this.service.readByUsername(username);
   }
 
   @Public()
@@ -54,6 +63,7 @@ export class UserController {
     return this.service.readById(id);
   }
 
+  @Public()
   @Patch(':id')
   @ApiOkResponse({ type: UserOutputDTO })
   @ApiParam({ name: 'id', type: Number })
@@ -64,6 +74,7 @@ export class UserController {
     return this.service.update(id, data);
   }
 
+  @Public()
   @Delete(':id')
   @ApiOkResponse({ type: UserOutputDTO })
   @ApiParam({ name: 'id', type: Number })
